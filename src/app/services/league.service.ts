@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
-import { CountryStandingTeamList } from '../Interfaces/football-update';
+import { CountryStandingTeamList, TopTenResults } from '../Interfaces/football-update';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,9 @@ import { CountryStandingTeamList } from '../Interfaces/football-update';
 export class LeagueService {
 
   footBallAPI = 'https://v3.football.api-sports.io/';
-  isloading = new Subject<boolean>();
+  isloading: Subject<boolean> = new Subject<boolean>();
+  leaugeID = 0;
+  teamName = '';
   isLoad$ = this.isloading.asObservable();
   options = {
     headers: new HttpHeaders({
@@ -24,6 +26,13 @@ export class LeagueService {
     return this.http.get<CountryStandingTeamList>(url, this.options);
   }
 
+  getTeamTopTenResults(teamID: number): Observable<TopTenResults> {
+    const leagueId = this.getSessionData('leagueID');
+    const results = 10;
+    const url = this.footBallAPI + `fixtures?league=${leagueId}&team=${teamID}&last=${results}`;
+    return this.http.get<TopTenResults>(url, this.options);
+  }
+
   getJSON(url:string): Observable<any> {
     return this.http.get(url);
 }
@@ -34,5 +43,9 @@ export class LeagueService {
 
   clearLoading() {
     this.isloading.next(false);
+  }
+
+  getSessionData(key:string) {
+    return localStorage.getItem(key) ? localStorage.getItem(key) : false;
   }
 }

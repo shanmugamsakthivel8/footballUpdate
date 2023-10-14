@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { StandingTeamData } from 'src/app/Interfaces/foot-ball-update';
+import { StandingTeamData } from 'src/app/Interfaces/football-update';
+import { LeagueService } from 'src/app/services/league.service';
 
 @Component({
   selector: 'app-country-league-standings',
@@ -10,14 +11,21 @@ import { StandingTeamData } from 'src/app/Interfaces/foot-ball-update';
 export class CountryLeagueStandingsComponent {
   @Input() countryListStandingData:Array<StandingTeamData> = [];
   tableHeading: Array<string> = ['','','Name','Games','W','L','D','Goal Differene', 'Points'];
-  constructor(private router: Router) {
+  selectedTeam = '';
+  constructor(private router: Router, private league: LeagueService) {
 
   }
   ngOnInit() {
     console.log('adsdadas',this.countryListStandingData)
+    const teamSelected = this.league.getSessionData('teamSelected');
+    if (teamSelected) {
+      this.selectedTeam = teamSelected;
+    }
   }
 
   goToTeamResults(data:StandingTeamData) {
-    this.router.navigate(['/home/top10Results'])
+    this.selectedTeam = data.team.name;
+    localStorage.setItem('teamSelected',this.selectedTeam);
+    this.router.navigate(['football-country/team-results',data.team.id])
   }
 }

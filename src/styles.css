@@ -1,41 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 
-/* html {
-    margin:0px;
- height:100vh;
- width:100%;
- background:url('./assets/Images/soccer-football-stadium.jpg')no-repeat center center fixed; 
- -webkit-background-size:cover;
- -o-background-size:cover;
- -moz-background-size:cover;
- background-size:cover;
-} */
+body,
+html {
+  height: 100%;
+  margin: 0;
+}
 
-body, html {
-    height: 100%;
-    margin: 0;
-  }
-  
-  .bg {
-    /* The image used */
-    background-image: url("./assets/Images/soccer-football-stadium.jpg");
-  
-    /* Full height */
-    height: 100%; 
-  
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
+.back-image {
+  /* The image used */
+  background-image: url("./assets/Images/soccer-football-stadium.jpg");
 
-  .table-img {
-    width: 75%;
-    height: 30px;
-  }
+  /* Full height */
+  height: 100%;
 
-  .link-active {
-    color: blue;
-    text-decoration: underline;
-  }
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.table-img {
+  width: 75%;
+  height: 30px;
+}
+
+.link-active {
+  color: blue;
+  text-decoration: underline;
+}
+
+.nav-link {
+  cursor: pointer;
+}
+
+.border-table {
+  border-radius: 25px;
+}

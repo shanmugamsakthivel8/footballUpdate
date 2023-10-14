@@ -1,15 +1,16 @@
 <div class="table-responsive" *ngIf="countryListStandingData && countryListStandingData.length > 0">
-    <table class="table">
+    <table class="table table-bordered">
         <thead>
           <tr>
-            <th scope="col" *ngFor="let heading of tableHeading;">{{heading}}</th>
+            <th scope="col" [id]="heading" *ngFor="let heading of tableHeading;">{{heading}}</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let data of countryListStandingData;  index as i;">
             <th scope="row">{{ data?.rank}}</th>
             <td><img class="table-img" [src]="data?.team?.logo" [alt]="data?.team?.name"></td>
-            <td (click)="goToTeamResults(data);">{{ data?.team?.name | titlecase}}</td>
+            <td><a class="nav-link" [id]="data.team.name" (click)="goToTeamResults(data);" 
+              [ngClass]="selectedTeam === data.team.name ? 'link-active' : ''">{{ data?.team?.name | titlecase}}</a></td>
             <td>{{ data?.all?.played}}</td>
             <td>{{ data?.all?.win}}</td>
             <td>{{ data?.all?.draw}}</td>

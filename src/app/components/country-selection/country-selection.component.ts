@@ -18,15 +18,21 @@ export class CountrySelectionComponent {
   ]
   countryListStandingData: Array<StandingTeamData> = [];
   showStanding = false;
-  selectedCountry = '';
+  selectedCountryLeague = 0;
   private sub: Subscription[] = [];
 
   ngOnInit(): void {
+    const leagueID = this.league.getSessionData('leagueID');
+    if (leagueID) {
+      this.getStandings(Number(leagueID));
+    }
   }
 
   constructor(private league: LeagueService) {}
 
   getStandings(leagueId: number) {
+    this.selectedCountryLeague = leagueId;
+    localStorage.setItem('leagueID',leagueId.toString());
     this.league.setLoading();
     this.showStanding = false;
     // this.sub.push(
@@ -45,8 +51,7 @@ export class CountrySelectionComponent {
         .getJSON('./assets/JSON/countryLeagueStanding.json')
         .subscribe((data: CountryStandingTeamList) => {
           this.league.clearLoading();
-          this.countryListStandingData = data.response[0].league.standings[0]
-         console.log('data',data);
+          this.countryListStandingData = data.response[0].league.standings[0];
          this.showStanding = true;
         })
     );

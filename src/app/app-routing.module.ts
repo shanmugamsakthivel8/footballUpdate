@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CountrySelectionComponent } from './components/country-selection/country-selection.component';
 import { TeamLastTenResultsComponent } from './components/team-last-ten-results/team-last-ten-results.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
     component: TeamLastTenResultsComponent
   },
   { path: '',   redirectTo: 'football-country', pathMatch: 'full' },
+  { path: '**',   component: PageNotFoundComponent}
 ];
 
 @NgModule({

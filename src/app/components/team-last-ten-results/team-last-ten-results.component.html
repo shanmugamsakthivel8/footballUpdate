@@ -1,2 +1,21 @@
-<p>team-last-ten-results works!</p>
-<button [routerLink]="['']"> Go to back</button>
+<div class="row bg-white mx-auto bg-white w-75 p-1 text-center mt-3 border-table">
+    <div class="table-responsive" *ngIf="teamTopTenResult && teamTopTenResult.length > 0">
+        <table class="table">
+            <tbody>
+              <tr *ngFor="let data of teamTopTenResult;">
+                <td><img class="table-img" [src]="data?.teams?.home?.logo" [alt]="data?.teams?.home?.name"></td>
+                <td>{{ data?.teams?.home?.name | titlecase}}</td>
+                <td>{{ data?.goals?.home}}</td>
+                <td> - </td>
+                <td>{{ data?.goals?.away}}</td>
+                <td>{{ data?.teams?.away?.name | titlecase}}</td>
+                <td><img class="table-img" [src]="data?.teams?.away?.logo" [alt]="data?.teams?.away?.name"></td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</div>
+
+<span class="mt-3">
+    <button type="button" id="goToback" class="btn btn-primary left-button" [routerLink]="['']"> Go to back</button>
+</span>

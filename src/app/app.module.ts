@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { CountrySelectionComponent } from './components/country-selection/country-selection.component';
 import { CountryLeagueStandingsComponent } from './components/country-league-standings/country-league-standings.component';
 import { TeamLastTenResultsComponent } from './components/team-last-ten-results/team-last-ten-results.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CountrySelectionComponent,
     CountryLeagueStandingsComponent,
-    TeamLastTenResultsComponent
+    TeamLastTenResultsComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
