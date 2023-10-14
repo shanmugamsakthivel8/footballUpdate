@@ -1,1 +1,22 @@
-<p>country-league-standings works!</p>
+<div class="table-responsive" *ngIf="countryListStandingData && countryListStandingData.length > 0">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col" *ngFor="let heading of tableHeading;">{{heading}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of countryListStandingData;  index as i;">
+            <th scope="row">{{ data?.rank}}</th>
+            <td><img class="table-img" [src]="data?.team?.logo" [alt]="data?.team?.name"></td>
+            <td (click)="goToTeamResults(data);">{{ data?.team?.name | titlecase}}</td>
+            <td>{{ data?.all?.played}}</td>
+            <td>{{ data?.all?.win}}</td>
+            <td>{{ data?.all?.draw}}</td>
+            <td>{{ data?.all?.lose}}</td>
+            <td>{{ data?.goalsDiff}}</td>
+            <td>{{ data?.points}}</td>
+          </tr>
+        </tbody>
+      </table>
+</div>

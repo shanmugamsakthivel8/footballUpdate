@@ -1,2 +1,14 @@
-<p>country-selection works!</p>
-<button [routerLink]="['team-results', 1]"> Go to Team</button>
+<div class="row bg-white mx-auto bg-white w-75 p-1 text-center">
+        <div class="header">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light" *ngIf="countryList && countryList.length > 0">
+                <div class="form-inline" *ngFor="let country of countryList">
+                     <button class="btn btn-light" [id]="country?.id" type="button"><a class="nav-link" (click)="getStandings(country.leagueId);">{{ country?.name
+                                            | titlecase}}</a></button>
+                </div>
+            </nav>
+        </div>       
+</div>
+
+<div class="row bg-white mx-auto bg-white w-75 p-1 text-center mt-3" *ngIf="showStanding">
+    <app-country-league-standings [countryListStandingData]="countryListStandingData"></app-country-league-standings>
+</div>

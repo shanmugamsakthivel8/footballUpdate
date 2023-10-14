@@ -5,14 +5,14 @@ import { TeamLastTenResultsComponent } from './components/team-last-ten-results/
 
 const routes: Routes = [
   {
-    path: 'country-selection',
+    path: 'football-country',
     component: CountrySelectionComponent
   },
   {
-    path: 'country-selection/team-results/:teamId',
+    path: 'football-country/team-results/:teamId',
     component: TeamLastTenResultsComponent
   },
-  { path: '',   redirectTo: 'country-selection', pathMatch: 'full' },
+  { path: '',   redirectTo: 'football-country', pathMatch: 'full' },
 ];
 
 @NgModule({
