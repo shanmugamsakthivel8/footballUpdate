@@ -10,7 +10,7 @@ import { LeagueService } from 'src/app/services/league.service';
 })
 export class CountryLeagueStandingsComponent {
   @Input() countryListStandingData:Array<StandingTeamData> = [];
-  tableHeading: Array<string> = ['','','Name','Games','W','L','D','Goal Differene', 'Points'];
+  tableHeading: Array<string> = ['','','Name','Games','W','L','D','Goal Difference', 'Points'];
   selectedTeam = '';
   constructor(private router: Router, private league: LeagueService) {
 

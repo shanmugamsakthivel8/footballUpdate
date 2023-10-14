@@ -13,7 +13,8 @@ import { LeagueService } from 'src/app/services/league.service';
 export class TeamLastTenResultsComponent implements OnDestroy {
   teamTopTenResult: Array<TeamResult> = [];
   private subscriptions: Subscription[] = [];
-  constructor (private route: ActivatedRoute, private leagueService:LeagueService, public spinner: NgxSpinnerService) {
+  
+  constructor (private route: ActivatedRoute, private leagueService:LeagueService, private spinner: NgxSpinnerService) {
     const teamId = Number(this.route.snapshot.paramMap.get('teamId'));
     this.spinner.show();
 

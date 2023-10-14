@@ -29,7 +29,7 @@ export class CountrySelectionComponent {
     }
   }
 
-  constructor(private leagueService: LeagueService, public spinner: NgxSpinnerService) { }
+  constructor(private leagueService: LeagueService, private spinner: NgxSpinnerService) { }
 
   getStandings(leagueId: number) {
     this.selectedCountryLeague = leagueId;
