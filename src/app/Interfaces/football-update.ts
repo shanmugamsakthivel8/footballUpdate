@@ -1,9 +1,7 @@
 export interface Country {
     id: string;
     name: string;
-    code: string;
     leagueId: number;
-    leagueName: string;
 }
 
 export interface ServiceParameters {

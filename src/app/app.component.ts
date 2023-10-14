@@ -10,8 +10,9 @@ import { Subscription } from 'rxjs';
 export class AppComponent implements OnDestroy {
   title = 'footballUpdates';
   subscription: Subscription;
+  
   constructor(private router: Router) {
-    this.subscription = router.events.subscribe((event) => {
+    this.subscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart && event.url === '/football-country') {
        localStorage.clear();
       }

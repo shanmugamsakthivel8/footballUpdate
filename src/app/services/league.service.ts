@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CountryStandingTeamList, TopTenResults } from '../Interfaces/football-update';
 
 @Injectable({
@@ -9,17 +9,13 @@ import { CountryStandingTeamList, TopTenResults } from '../Interfaces/football-u
 export class LeagueService {
 
   footBallAPI = 'https://v3.football.api-sports.io/';
-  isloading: Subject<boolean> = new Subject<boolean>();
-  leaugeID = 0;
-  teamName = '';
-  isLoad$ = this.isloading.asObservable();
   options = {
     headers: new HttpHeaders({
       "x-rapidapi-host": "v3.football.api-sports.io",
       "x-rapidapi-key": "cb0daa65a3112e140c61c45ae1ce3ad7"
     })
   }
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getCountryLeagueDetails(leagueId: number): Observable<CountryStandingTeamList> {
     const url = this.footBallAPI + `standings?league=${leagueId}&season=${new Date().getFullYear()}`;
@@ -33,19 +29,11 @@ export class LeagueService {
     return this.http.get<TopTenResults>(url, this.options);
   }
 
-  getJSON(url:string): Observable<any> {
+  getJSON(url: string): Observable<any> {
     return this.http.get(url);
-}
-
-  setLoading() {
-   this.isloading.next(true);
   }
 
-  clearLoading() {
-    this.isloading.next(false);
-  }
-
-  getSessionData(key:string) {
+  getSessionData(key: string) {
     return localStorage.getItem(key) ? localStorage.getItem(key) : false;
   }
 }

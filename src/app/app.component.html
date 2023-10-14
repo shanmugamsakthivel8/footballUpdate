@@ -1,6 +1,8 @@
 <div class="back-image w-100 p-3 text-center ">
     <div class="header">
-        <h1 class="mx-auto bg-white w-75 px-3 text-center">FootBall Updates</h1>
+        <h1 class="mx-auto bg-white w-75 px-3 text-center">{{ title | uppercase}}</h1>
     </div>
     <router-outlet></router-outlet>
 </div>
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>

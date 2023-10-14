@@ -16,7 +16,6 @@ export class CountryLeagueStandingsComponent {
 
   }
   ngOnInit() {
-    console.log('adsdadas',this.countryListStandingData)
     const teamSelected = this.league.getSessionData('teamSelected');
     if (teamSelected) {
       this.selectedTeam = teamSelected;

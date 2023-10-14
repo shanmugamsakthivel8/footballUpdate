@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Subscription, delay} from 'rxjs';
 import { Country, CountryStandingTeamList, StandingTeamData } from 'src/app/Interfaces/football-update';
 import { LeagueService } from 'src/app/services/league.service';
 
@@ -9,12 +10,12 @@ import { LeagueService } from 'src/app/services/league.service';
   styleUrls: ['./country-selection.component.css']
 })
 export class CountrySelectionComponent {
-  countryList:Array<Country> = [
-    { id: 'englandSelect', name: 'england', code:'eg', leagueId: 39, leagueName: 'Premier League' },
-    { id: 'spainSelect', name: 'spain', code:'sp', leagueId: 140, leagueName: 'La Liga'  },
-    { id: 'germanySelect', name: 'germany', code:'gr', leagueId: 78, leagueName: 'Bundesliga'  },
-    { id: 'franceSelect', name: 'france', code:'fr', leagueId: 61, leagueName: 'Ligue 1'  },
-    { id: 'italySelect', name: 'italy', code:'it', leagueId: 135, leagueName: 'Serie A'  }
+  countryList: Array<Country> = [
+    { id: 'englandSelect', name: 'england', leagueId: 39 },
+    { id: 'spainSelect', name: 'spain', leagueId: 140 },
+    { id: 'germanySelect', name: 'germany', leagueId: 78 },
+    { id: 'franceSelect', name: 'france', leagueId: 61 },
+    { id: 'italySelect', name: 'italy', leagueId: 135 }
   ]
   countryListStandingData: Array<StandingTeamData> = [];
   showStanding = false;
@@ -28,36 +29,44 @@ export class CountrySelectionComponent {
     }
   }
 
-  constructor(private league: LeagueService) {}
+  constructor(private league: LeagueService, public spinner: NgxSpinnerService) { }
 
   getStandings(leagueId: number) {
     this.selectedCountryLeague = leagueId;
-    localStorage.setItem('leagueID',leagueId.toString());
-    this.league.setLoading();
+    localStorage.setItem('leagueID', leagueId.toString());
+    this.spinner.show();
     this.showStanding = false;
+
+    // using service
+
     // this.sub.push(
     //   this.league
     //     .getCountryLeagueDetails(leagueId)
     //     .subscribe((data: CountryStandingTeamList) => {
-    //       this.league.clearLoading();
+    //       this.spinner.hide();
     //       this.countryListStandingData = data.response[0].league.standings[0]
-    //      console.log('data',data);
-    //      this.showStanding = true;
+    //       console.log('data', data);
+    //       this.showStanding = true;
     //     })
     // );
 
+    // using local json file
     this.sub.push(
       this.league
-        .getJSON('./assets/JSON/countryLeagueStanding.json')
+        .getJSON('./assets/JSON/countryLeagueStanding.json').pipe(
+         delay(1000)
+        )
         .subscribe((data: CountryStandingTeamList) => {
-          this.league.clearLoading();
+          this.spinner.hide();
           this.countryListStandingData = data.response[0].league.standings[0];
-         this.showStanding = true;
+          this.showStanding = true;
         })
     );
   }
 
   ngOnDestroy(): void {
-    
+    if(this.sub && this.sub.length > 0) {
+      this.sub.forEach(e=>{e.unsubscribe});
+    }
   }
 }
