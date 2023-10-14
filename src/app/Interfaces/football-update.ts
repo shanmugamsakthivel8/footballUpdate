@@ -97,7 +97,7 @@ export interface Goals {
 }
 
 
-export interface TeamResult    {
+export interface TeamResult {
     fixture: {
         id: number;
         referee: string;

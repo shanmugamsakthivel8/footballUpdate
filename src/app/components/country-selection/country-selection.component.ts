@@ -20,16 +20,16 @@ export class CountrySelectionComponent {
   countryListStandingData: Array<StandingTeamData> = [];
   showStanding = false;
   selectedCountryLeague = 0;
-  private sub: Subscription[] = [];
+  private subscription: Subscription[] = [];
 
   ngOnInit(): void {
-    const leagueID = this.league.getSessionData('leagueID');
+    const leagueID = this.leagueService.getSessionData('leagueID');
     if (leagueID) {
       this.getStandings(Number(leagueID));
     }
   }
 
-  constructor(private league: LeagueService, public spinner: NgxSpinnerService) { }
+  constructor(private leagueService: LeagueService, public spinner: NgxSpinnerService) { }
 
   getStandings(leagueId: number) {
     this.selectedCountryLeague = leagueId;
@@ -38,35 +38,37 @@ export class CountrySelectionComponent {
     this.showStanding = false;
 
     // using service
-
-    // this.sub.push(
-    //   this.league
-    //     .getCountryLeagueDetails(leagueId)
-    //     .subscribe((data: CountryStandingTeamList) => {
-    //       this.spinner.hide();
-    //       this.countryListStandingData = data.response[0].league.standings[0]
-    //       console.log('data', data);
-    //       this.showStanding = true;
-    //     })
-    // );
-
-    // using local json file
-    this.sub.push(
-      this.league
-        .getJSON('./assets/JSON/countryLeagueStanding.json').pipe(
-         delay(1000)
-        )
+    this.subscription.push(
+      this.leagueService
+        .getCountryLeagueDetails(leagueId)
         .subscribe((data: CountryStandingTeamList) => {
           this.spinner.hide();
           this.countryListStandingData = data.response[0].league.standings[0];
           this.showStanding = true;
+        }, error => {
+          this.leagueService.handleError(error);
         })
     );
+
+    // using local json file
+    // this.subscription.push(
+    //   this.leagueService
+    //     .getJSON('./assets/JSON/countryLeagueStanding.json').pipe(
+    //      delay(1000)
+    //     )
+    //     .subscribe((data: CountryStandingTeamList) => {
+    //       this.spinner.hide();
+    //       this.countryListStandingData = data.response[0].league.standings[0];
+    //       this.showStanding = true;
+    //     },error => {
+    //       this.leagueService.handleError(error);
+    //     })
+    // );
   }
 
   ngOnDestroy(): void {
-    if(this.sub && this.sub.length > 0) {
-      this.sub.forEach(e=>{e.unsubscribe});
+    if(this.subscription && this.subscription.length > 0) {
+      this.subscription.forEach(e=>{e.unsubscribe});
     }
   }
 }

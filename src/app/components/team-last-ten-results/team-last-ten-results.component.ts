@@ -12,39 +12,43 @@ import { LeagueService } from 'src/app/services/league.service';
 })
 export class TeamLastTenResultsComponent implements OnDestroy {
   teamTopTenResult: Array<TeamResult> = [];
-  private sub: Subscription[] = [];
-  constructor (private route: ActivatedRoute, private league:LeagueService, public spinner: NgxSpinnerService) {
+  private subscriptions: Subscription[] = [];
+  constructor (private route: ActivatedRoute, private leagueService:LeagueService, public spinner: NgxSpinnerService) {
     const teamId = Number(this.route.snapshot.paramMap.get('teamId'));
     this.spinner.show();
 
     // using service
-
-    // this.sub.push(
-    //   this.league
-    //     .getTeamTopTenResults(teamId)
-    //     .subscribe((data: TopTenResults) => {
-    //       this.spinner.hide();
-    //       this.teamTopTenResult = data.response;
-    //       console.log('data', data);
-    //     })
-    // );
-
-    //used for local json file
-    this.sub.push(
-      this.league
-        .getJSON('./assets/JSON/teamLastTenResult.json').pipe(
-          delay(1000)
-        )
+    this.subscriptions.push(
+      this.leagueService
+        .getTeamTopTenResults(teamId)
         .subscribe((data: TopTenResults) => {
           this.spinner.hide();
           this.teamTopTenResult = data.response;
+        },
+        error => {
+          this.leagueService.handleError(error);
         })
     );
+
+    //used for local json file
+    // this.subscriptions.push(
+    //   this.leagueService
+    //     .getJSON('./assets/JSON/teamLastTenResult.json').pipe(
+    //       delay(1000)
+    //     )
+    //     .subscribe((data: TopTenResults) => {
+    //       this.spinner.hide();
+    //       this.teamTopTenResult = data.response;
+    //     },
+    //     error => {
+    //       this.leagueService.handleError(error);
+    //     })
+    // );
   }
 
   ngOnDestroy(): void {
-    if (this.sub && this.sub.length > 0) {
-      this.sub.forEach(e=> e.unsubscribe());
+    if (this.subscriptions && this.subscriptions.length > 0) {
+      this.subscriptions.forEach(e=> e.unsubscribe());
     }
   }
 }

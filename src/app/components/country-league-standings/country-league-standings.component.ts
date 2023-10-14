@@ -25,6 +25,6 @@ export class CountryLeagueStandingsComponent {
   goToTeamResults(data:StandingTeamData) {
     this.selectedTeam = data.team.name;
     localStorage.setItem('teamSelected',this.selectedTeam);
-    this.router.navigate(['football-country/team-results',data.team.id])
+    this.router.navigate(['football-country/team-results',data.team.id]);
   }
 }

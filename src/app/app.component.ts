@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnDestroy {
-  title = 'footballUpdates';
+  title:string = 'football Updates';
   subscription: Subscription;
   
   constructor(private router: Router) {
