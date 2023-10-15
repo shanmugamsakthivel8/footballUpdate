@@ -18,12 +18,12 @@ export class CountrySelectionComponent {
     { id: 'italySelect', name: 'italy', leagueId: 135 }
   ]
   countryListStandingData: Array<StandingTeamData> = [];
-  showStanding = false;
-  selectedCountryLeague = 0;
+  showStanding:boolean = false;
+  selectedCountryLeague: number = 0;
   private subscription: Subscription[] = [];
 
   ngOnInit(): void {
-    const leagueID = this.leagueService.getSessionData('leagueID');
+    const leagueID:(string|false|null) = this.leagueService.getSessionData('leagueID');
     if (leagueID) {
       this.getStandings(Number(leagueID));
     }

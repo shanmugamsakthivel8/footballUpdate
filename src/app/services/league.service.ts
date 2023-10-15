@@ -3,13 +3,17 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CountryStandingTeamList, TopTenResults } from '../Interfaces/football-update';
 
+export interface OptionHeader {
+  headers: HttpHeaders;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class LeagueService {
 
-  footBallAPI = 'https://v3.football.api-sports.io/';
-  options = {
+  footBallAPI:string = 'https://v3.football.api-sports.io/';
+  options:OptionHeader = {
     headers: new HttpHeaders({
       "x-rapidapi-host": "v3.football.api-sports.io",
       "x-rapidapi-key": "cb0daa65a3112e140c61c45ae1ce3ad7"

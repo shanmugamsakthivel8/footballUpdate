@@ -15,7 +15,7 @@ export class TeamLastTenResultsComponent implements OnDestroy {
   private subscriptions: Subscription[] = [];
   
   constructor (private route: ActivatedRoute, private leagueService:LeagueService, private spinner: NgxSpinnerService) {
-    const teamId = Number(this.route.snapshot.paramMap.get('teamId'));
+    const teamId:number = Number(this.route.snapshot.paramMap.get('teamId'));
     this.spinner.show();
 
     // using service

@@ -11,12 +11,12 @@ import { LeagueService } from 'src/app/services/league.service';
 export class CountryLeagueStandingsComponent {
   @Input() countryListStandingData:Array<StandingTeamData> = [];
   tableHeading: Array<string> = ['','','Name','Games','W','L','D','Goal Difference', 'Points'];
-  selectedTeam = '';
+  selectedTeam:string = '';
   constructor(private router: Router, private league: LeagueService) {
 
   }
   ngOnInit() {
-    const teamSelected = this.league.getSessionData('teamSelected');
+    const teamSelected:(string|false|null)= this.league.getSessionData('teamSelected');
     if (teamSelected) {
       this.selectedTeam = teamSelected;
     }
