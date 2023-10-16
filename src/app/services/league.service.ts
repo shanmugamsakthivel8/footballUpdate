@@ -36,9 +36,9 @@ export class LeagueService {
   }
 
   //used to read from Local Json development usage
-  getJSON(url: string): Observable<any> {
-    return this.http.get(url);
-  }
+  // getJSON(url: string): Observable<any> {
+  //   return this.http.get(url);
+  // }
 
   //retrive the data from localstorage
   getSessionData(key: string) {
